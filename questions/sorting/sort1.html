@@ -9,71 +9,64 @@
 <body>
     <h1>PROGRAM: </h1>
     <pre>
-        #include&ltstdio.h>
-    #include&ltconio.h>
-     // selection sorting through iteration
-        void selectsort(int arr[],int size)
+      #include&ltstdio.h>
+    #include&ltstdlib.h>
+    #include &lttime.h>
+    void Selectionsort(int *arr, int size){
+        int temp, i, j;
+        for (i = 0; i &lt size; i++)
         {
-         int i,j,temp;
-         for(i=0; i&ltsize;i++){
-         for(j=i+1; j&ltsize;j++){
-          if(arr[i]>arr[j]){
-           temp=arr[i];
-        arr[i]=arr[j];
-        arr[j]=temp;
+            for (j = i+1; j &lt size; j++)
+            {
+                if (arr[i] > arr[j])
+                {
+                    temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+            
         }
-           }
-          }
-         }
-        void main()
+    }
+    
+    
+    int main(){
+        int arr[1000], i;
+        
+        for (i = 0; i &lt 1000; i++)
         {
-          int arr[10],i,temp;
-          clrscr();
-          for(i=0;i&lt10;i++)
-          {
-        printf("enter valu at %d position:\n",i+1);
-        scanf("%d",&arr[i]);
-          }
-           selectsort(arr,10);
-           for(i=0;i&lt10;i++)
-           {
-         printf("sorted array:%d\n",arr[i]);
-           }
-        delay(5000);
-          }
+            arr[i] = rand(); // Adding 1000 Random Values in array
+        }
+    
+        clock_t start, end;
+        double cpu_time_used;
+    
+        start = clock();
+        Selectionsort(arr, 1000);
+        end = clock();
+        printf("After Sorting Array\n");
+        cpu_time_used =(double) (end-start)/CLOCKS_PER_SEC;
+        printf("\nWorst-case Time taken: %f seconds\n", cpu_time_used);
+    
+        start = clock();
+        Selectionsort(arr, 1000);
+        end = clock();
+        printf("After Sorting Array\n");
+        cpu_time_used =(double) (end-start)/CLOCKS_PER_SEC;
+        printf("\nBest-case Time taken: %f seconds\n", cpu_time_used);
+    
+        return 0;
+    }
+        
     </pre>    
     <h1>OUTPUT:</h1>
     <pre>
-        enter valu at 1 position:                                                       
-        78                                                                              
-        enter valu at 2 position:                                                       
-        90                                                                              
-        enter valu at 3 position:                                                       
-        67                      
-        enter valu at 4 position:                                                       
-        45                                                                              
-        enter valu at 5 position:                                                       
-        98                                                                              
-        enter valu at 6 position:                                                       
-        23                                                                              
-        enter valu at 7 position:                                                       
-        12                                                                              
-        enter valu at 8 position:                                                       
-        22                                                                              
-        enter valu at 9 position:                                                       
-        10                                                                              
-        enter valu at 10 position:                                                      
-        0                                                                               
-        sorted array:0                                                                  
-        sorted array:10                                                                 
-        sorted array:12                                                                 
-        sorted array:22                                                                 
-        sorted array:23                                                                 
-        sorted array:45                                                                 
-        sorted array:67                                                                 
-        sorted array:78                                                                 
-        sorted array:90                                                                 
-        sorted array:98                                                                 
+      After Sorting Array
+
+      Worst-case Time taken: 0.001000 seconds
+      After Sorting Array
+      
+      Best-case Time taken: 0.001000 seconds                                                            
                                                                                         
         
     </pre>

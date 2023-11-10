@@ -8,8 +8,74 @@
 </head>
 <body>
     <h1>PROGRAM: </h1>
-    <pre></pre>    
+    <pre>
+        #include &ltstdio.h>
+        #include&ltstdlib.h>
+        #include &lttime.h>
+        int minInd(int arr[], int l, int u)
+        {
+            int i, min = l;
+            for (i = l+1; i &lt= u; i++)
+            {
+                if (arr[min] > arr[i])
+                {
+                    min = i;
+                }
+                
+            }
+            return min;
+        }
+        
+        void Selectionsort(int arr[], int l, int size)
+        {
+            if(l > size)
+            {
+                return;
+            }
+            int min = minInd(arr, l, size-1);
+            int temp = arr[l];
+            arr[l] = arr[min];
+            arr[min] = temp;
+            Selectionsort(arr, l+1, size);
+        }
+        
+        int main()
+        {
+            int arr[1000], i;
+            
+            for (i = 0; i &lt 1000; i++)
+            {
+                arr[i] = rand(); // Adding 1000 Random Values in array
+            }
+        
+            clock_t start, end;
+            double cpu_time_used;
+        
+            start = clock();
+            Selectionsort(arr,0, 1000);
+            end = clock();
+            printf("After Sorting Array\n");
+            cpu_time_used =(double) (end-start)/CLOCKS_PER_SEC;
+            printf("\nWorst-case Time taken: %f seconds\n", cpu_time_used);
+        
+            start = clock();
+            Selectionsort(arr, 0, 1000);
+            end = clock();
+            printf("After Sorting Array\n");
+            cpu_time_used =(double) (end-start)/CLOCKS_PER_SEC;
+            printf("\nBest-case Time taken: %f seconds\n", cpu_time_used);
+        
+            return 0;
+        }
+    </pre>    
     <h1>OUTPUT:</h1>
-    <pre></pre>
+    <pre>
+        After Sorting Array
+
+        Worst-case Time taken: 0.003000 seconds
+        After Sorting Array
+        
+        Best-case Time taken: 0.001000 seconds
+    </pre>
 </body>
 </html>

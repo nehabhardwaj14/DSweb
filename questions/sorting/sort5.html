@@ -9,57 +9,62 @@
 <body>
     <h1>PROGRAM: </h1>
     <pre>
-        #include&ltstdio.h>
-        #include&ltconio.h>
-          //insertion sort through iteration
-            void insertsort(int arr[],int size)
-            {
-             int i,j,key;
-             for(i=1;i&ltsize;i++){                
-              key=arr[i];
-             j=i-1;
-             while(j>=0 && arr[j] >key){
-              arr[j+1]=arr[j];
-              j=j-1;
-            }
-            arr[j+1]=key;
-            }
+      #include&ltstdio.h>
+      #include&ltstdlib.h>
+      #include &lttime.h>
+      void InsertionSort(int *arr, int size){
+          int temp, i, j;
+          for (i = 1; i &lt size; i++)
+          {
+              for (j = i; j > 0; j--)
+              {
+                  if(arr[j] &lt arr[j-1]){
+                      temp = arr[j];
+                      arr[j] = arr[j-1];
+                      arr[j] = temp;
+                  }
+                  
+              }
+              
           }
-               void main()
-               {
-        
-               int i,arr[5];
-               clrscr();
-               for(i=0;i&lt5;i++)
-               {
-               printf("enter value at position %d:\n",i+1);
-               scanf("%d",&arr[i]);
-               }
-               insertsort(arr,5);
-               for(i=0;i&lt5;i++)
-               {
-               printf("sorted array:%d\n",arr[i]);
-               }
-               delay(5000);
-               }
+      }
+      
+      int main(){
+          int arr[1000], i;
+          
+          for (i = 0; i &lt 1000; i++)
+          {
+              arr[i] = rand(); // Adding 1000 Random Values in array
+          }
+      
+          clock_t start, end;
+          double cpu_time_used;
+      
+          start = clock();
+          InsertionSort(arr, 1000);
+          end = clock();
+          printf("After Sorting Array\n");
+          cpu_time_used =(double) (end-start)/CLOCKS_PER_SEC;
+          printf("\nWorst-case Time taken: %f seconds\n", cpu_time_used);
+      
+          start = clock();
+          InsertionSort(arr, 1000);
+          end = clock();
+          printf("After Sorting Array\n");
+          cpu_time_used =(double) (end-start)/CLOCKS_PER_SEC;
+          printf("\nBest-case Time taken: %f seconds\n", cpu_time_used);
+      
+          return 0;
+      }    
     </pre>    
     <h1>OUTPUT:</h1>
     <pre>
-        enter value at position 1:                                                      
-        89                                                                              
-        enter value at position 2:                                                      
-        67                                                                              
-        enter value at position 3:                                                      
-        34                                                                              
-        enter value at position 4:                                                      
-        23                                                                              
-        enter value at position 5:                                                      
-        12                                                                              
-        sorted array:12                                                                 
-        sorted array:23                                                                 
-        sorted array:34                                                                 
-        sorted array:67                                                                 
-        sorted array:89
+      After Sorting Array
+
+      Worst-case Time taken: 0.002000 seconds
+      After Sorting Array
+      
+      Best-case Time taken: 0.003000 seconds
     </pre>
 </body>
 </html>

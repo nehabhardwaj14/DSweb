@@ -10,54 +10,62 @@
     <h1>PROGRAM: </h1>
     <pre>
         #include&ltstdio.h>
-        #include&ltconio.h>
-           //bubble sort through iteration
-            void bubblesort(int arr[],int n)
-              {
-               int i,j,temp;
-               for(i=0 ;i&ltn-2;i++){
-               for(j=i; j&lt(n-i-1);j++){
-               if(arr[j] >arr[j+1]){
-              temp=arr[j];
-              arr[j]=arr[j+1];
-              arr[j+1]=temp;
-              }}}
-              }
-               void main()
-               {
-               int arr[5],i;
-               clrscr();
-               for(i=0;i&lt5;i++)
-               {
-               printf("enter value at %d position:\n",i+1);
-               scanf("%d",&arr[i]);
-               }
-               bubblesort(arr,5);
-               for(i=0;i&lt5;i++)
-               {
-               printf("sorted array: %d\n",arr[i]);
-               }
-               delay(5000);
-               }
+    #include&ltstdlib.h>
+    #include &lttime.h>
+    void BubbleSort(int *arr, int size){
+        int i, j;
+        for (i = 0; i &lt size-2; i++)
+        {
+            for (j = 0; j &lt size-i-1; j++)
+            {
+                if (arr[j] > arr[j+1])
+                {
+                    int temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                }
+            }
+        }
+    }
+    
+    
+    int main(){
+        int arr[1000], i;
+        
+        for (i = 0; i &lt 1000; i++)
+        {
+            arr[i] = rand(); // Adding 1000 Random Values in array
+        }
+    
+        clock_t start, end;
+        double cpu_time_used;
+    
+        start = clock();
+        BubbleSort(arr, 1000);
+        end = clock();
+        printf("After Sorting Array\n");
+        cpu_time_used =(double) (end-start)/CLOCKS_PER_SEC;
+        printf("\nWorst-case Time taken: %f seconds\n", cpu_time_used);
+    
+        start = clock();
+        BubbleSort(arr, 1000);
+        end = clock();
+        printf("After Sorting Array\n");
+        cpu_time_used =(double) (end-start)/CLOCKS_PER_SEC;
+        printf("\nBest-case Time taken: %f seconds\n", cpu_time_used);
+    
+        return 0;
+    }
         
     </pre>    
     <h1>OUTPUT:</h1>
     <pre>
-        enter value at 1 position:                                                      
-        90                                                                              
-        enter value at 2 position:                                                      
-        67                                                                              
-        enter value at 3 position:                                                      
-        23                                                                              
-        enter value at 4 position:                                                      
-        11                                                                              
-        enter value at 5 position:                                                      
-        14                                                                              
-        sorted array: 67                                                                
-        sorted array: 11                                                                
-        sorted array: 14                                                                
-        sorted array: 23                                                                
-        sorted array: 90  
+        After Sorting Array
+
+    Worst-case Time taken: 0.002000 seconds
+    After Sorting Array
+    
+    Best-case Time taken: 0.003000 seconds 
     </pre>
 </body>
 </html>
