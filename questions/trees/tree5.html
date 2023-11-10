@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="tree.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include&ltstdio.h>
+        #include&ltstdlib.h>
+        
+        struct node
+        {
+            int data;
+            struct node *left;
+            struct node *right;
+        };
+        typedef struct node Node;
+        
+        Node* cntructTree(int postorder[], int inorder[],int postStart, int postEnd, int inStart, int inEnd){
+            int i;
+            Node *root;
+            if (postStart > postEnd || inStart > inEnd)
+                return NULL;
+        
+            root = (Node*)malloc(sizeof(Node));
+            root->data = postorder[postEnd];
+            root->left = root->right = NULL;
+        
+            if (inStart == inEnd)
+                return root;
+        
+            for (i = inStart; i &lt= inEnd; i++) {
+                if (inorder[i] == root->data)
+                    break;
+            }
+        
+            root->right = cntructTree(postorder, inorder, postEnd-(inEnd - i)-1, postEnd-1, i+1, inEnd);
+            root->left = cntructTree(postorder, inorder, postStart, postEnd-(inEnd - i),  inStart, i-1);
+        
+            return root;
+        }
+        
+        void inorderTraversal(Node* root) {
+            if (root == NULL) {
+                return;
+            }
+            inorderTraversal(root->left);
+            printf("%d ", root->data);
+            inorderTraversal(root->right);
+        }
+        
+        int main(){
+            int post[10], in[10];
+            Node *root = NULL;
+        
+            printf("Enter postorder traversal (seperated by space)\n");
+            scanf("%d%d%d%d%d%d%d%d%d%d", &post[0], &post[1], &post[2], &post[3], &post[4], &post[5], &post[6], &post[7], &post[8], &post[9]);
+            printf("Enter inorder traversal (seperated by space)\n");
+            scanf("%d%d%d%d%d%d%d%d%d%d", &in[0], &in[1], &in[2], &in[3], &in[4], &in[5], &in[6], &in[7], &in[8], &in[9]);
+            
+        
+            root = cntructTree(post, in, 0, 9, 0, 9);
+            inorderTraversal(root);
+        }
+    </pre>    
+    <h1>OUTPUT:</h1>
+    <pre>
+        Enter postorder traversal (seperated by space)
+        3 6 7 4 12 11 8 2 5 10 
+        Enter inorder traversal (seperated by space)
+        3 12 6 4 7 10 11 5 2 8 
+        Printing Inorder
+        3 12 6 4 7 10 11 5 2 8
+    </pre>
+</body>
+</html>

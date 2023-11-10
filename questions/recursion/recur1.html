@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stack.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include&ltstdio.h>
+            #include&ltconio.h>
+            #include&ltdos.h>
+            long fact(int num){
+                if (num == 0 || num == 1)
+                    return 1;
+                return num*fact(num - 1);    
+            }
+            
+            void main(){
+                int n;
+                clrscr();
+                printf("Enter Number \n");
+                scanf("%d", &n);
+            
+                printf("Factorial of %d is %ld", n, fact(n));
+                delay(5000);
+            }
+    </pre>
+    <h1>OUTPUT:</h1>
+    <pre>
+        Enter Number 
+        6
+        Factorial of 6 is 720         
+    </pre>
+</body>
+</html>

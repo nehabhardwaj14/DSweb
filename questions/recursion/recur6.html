@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stack.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include &ltstdio.h>
+    #include&ltconio.h>
+    #include&ltdos.h>
+    int findmin(int arr[], int n, int min)
+    {
+        if (n == 0)
+        {
+            return min;
+        }
+    
+        if (arr[n - 1] &lt min)
+        {
+            min = arr[n - 1];
+        }
+    
+        return findmin(arr, n - 1, min);
+    }
+    
+    void main()
+    {
+        int arr[10], i, smallest;
+        clrscr();
+        for (i = 0; i &lt 10; i++)
+        {
+            printf("Enter Value of %d Postion : \t", i+1);
+            scanf("%d", &arr[i]);
+        }
+        smallest = findmin(arr, 10, arr[0]);
+        printf("The smallest element in the array is: %d\n", smallest);
+    
+        delay(5000);
+    }
+      
+    </pre>
+    <h1>OUTPUT:</h1>
+    <pre>
+        Enter Value of 1 Postion :      -1
+        Enter Value of 2 Postion :      -2
+        Enter Value of 3 Postion :      78
+        Enter Value of 4 Postion :      45
+        Enter Value of 5 Postion :      89
+        Enter Value of 6 Postion :      45
+        Enter Value of 7 Postion :      98
+        Enter Value of 8 Postion :      0
+        Enter Value of 9 Postion :      44
+        Enter Value of 10 Postion :     -65
+        The smallest element in the array is: -65
+    </pre>
+</body>
+</html>

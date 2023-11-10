@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stack.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include &ltstdio.h>
+        #include &ltconio.h>
+        #include &ltdos.h>
+        int linearSearch(int arr[], int n, int key) {
+            int i;
+            for (i = 0; i &lt n; i++) {
+                if (arr[i] == key) {
+                    return i;
+                }
+            }
+            return -1; 
+        }
+        
+        void main() {
+            int arr[10], i, key, result;
+            clrscr();
+            for (i = 0; i &lt 10; i++)
+            {
+                printf("Enter Value of position %d:\n", i+1);
+                scanf("%d", &arr[i]);
+            }
+        
+            printf("Enter Value to be searched\n");
+            scanf("%d", &key);
+            result = linearSearch(arr, 10, key);
+        
+            if (result == -1) {
+                printf("Element %d not found in the array.\n", key);
+            } else {
+                printf("Element %d found at position %d.\n", key, result+1);
+            }
+        
+            delay(5000);
+        }
+    </pre>
+    <h1>OUTPUT:</h1>
+    <pre>
+        Enter Value of position 1:
+        34
+        Enter Value of position 2:
+        89
+        Enter Value of position 3:
+        12
+        Enter Value of position 4:
+        90
+        Enter Value of position 5:
+        78
+        Enter Value of position 6:
+        56
+        Enter Value of position 7:
+        98
+        Enter Value of position 8:
+        67
+        Enter Value of position 9:
+        45
+        Enter Value of position 10:
+        77
+        Enter Value to be searched:
+        98
+        Element 98 found at position 7
+    </pre>
+</body>
+</html>

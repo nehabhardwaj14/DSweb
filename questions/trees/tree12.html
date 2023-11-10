@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="tree.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include &ltstdio.h>
+        #define MAX 30
+        int tree[MAX];
+        int size = 0;
+        
+        void insert(int val)
+        {
+            if (size == MAX)
+            {
+                printf("Tree is Full!");
+                return;
+            }
+            if (size == 0)
+            {
+                tree[0] = val;
+                size++;
+                return;
+            }
+            int i = 0;
+            while (i &lt MAX && tree[i] != -1)
+            {
+                if (val &lt tree[i])
+                {
+                    i = 2 * i + 1;
+                }
+                else if (val > tree[i])
+                {
+                    i = 2 * i + 2;
+                }
+                else
+                {
+                    printf("Duplicate is not allowed!");
+                    break;
+                }
+            }
+            if (i &lt MAX)
+            {
+                tree[i] = val;
+                size++;
+            }
+            else
+            {
+                printf("Tree is Full!");
+                return;
+            }
+        }
+        
+        int kthLargest(int index, int k)
+        {
+            static int i;
+            if (index >= MAX || index &lt 0 || k &lt= 0 || k > size)
+            {
+                return -1;
+            }
+            int leftIndx = 2 * index + 1;
+            int rightIndx = 2 * index + 2;
+            if (tree[leftIndx] != -1){
+                kthLargest(leftIndx, k);
+            }
+            i++;
+            if (i == size-k+1)
+                printf("%dth Largest Element is %d\n", k, tree[index]);
+            if (tree[rightIndx] != -1){
+                kthLargest(rightIndx, k);
+            }
+            return 1;
+        }
+        int main(){
+            for (int i = 0; i &lt MAX; i++)
+            {
+                tree[i] = -1;
+            }
+            insert(92);
+            insert(2585);
+            insert(75);
+            insert(22);
+            insert(35);
+            insert(1);
+            if (kthLargest(0, 2) != 1)
+            {
+                printf("Invalid k\n");
+            }
+            return 0;
+        }
+    </pre>    
+    <h1>OUTPUT:</h1>
+    <pre>
+        2th Largest Element is 92
+    </pre>
+</body>
+</html>

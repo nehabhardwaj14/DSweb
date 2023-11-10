@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="tree.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include&ltstdio.h>
+        #include&ltstdlib.h>
+        
+        struct treeNode
+        {
+            int data;
+            struct treeNode *left;
+            struct treeNode *right;
+        };
+        typedef struct treeNode TreeNode;
+        struct queueNode
+        {
+            TreeNode *data;
+            struct queueNode *next;
+        };
+        typedef struct queueNode QueueNode;
+        
+        TreeNode* newNode(int val) {
+            TreeNode* node = (TreeNode*)malloc(sizeof(TreeNode));
+            node->data = val;
+            node->left = NULL;
+            node->right = NULL;
+            return node;
+        }
+        
+        int enqueue(QueueNode **rear, QueueNode **front, TreeNode *data)
+        {
+            QueueNode *nn;
+            nn = (QueueNode *)malloc(sizeof(QueueNode));
+            if (nn == NULL)
+            {
+                return 0;
+            }
+            nn->data = data;
+            nn->next = NULL;
+            if (*front == NULL)
+            {
+                *front = nn;
+            }
+            else
+            {
+                (*rear)->next = nn;
+            }
+            *rear = nn;
+            return 1;
+        }
+        
+        TreeNode* dequeue(QueueNode **rear, QueueNode **front)
+        {
+            QueueNode *temp;
+            if ((*front) == NULL)
+            {
+                return NULL;
+            }
+            TreeNode *data = (*front)->data;
+            temp = (*front);
+            if ((*front) == (*rear))
+            {
+                *front = *rear = NULL;
+            }
+            else{
+                (*front) = temp -> next;
+            }
+            free(temp);
+            return data;
+        }
+        
+        long queueSize(QueueNode *front){
+            int i;
+            for (i = 0; front != NULL; i++)
+                front = front->next;
+            return i;
+        }
+        
+        void printLeftView(TreeNode* root) {
+            QueueNode *front, *rear;
+            front = rear = NULL;
+            if (root == NULL)
+                return;
+        
+            enqueue(&rear, &front, root);
+        
+            while (front != NULL) {
+                int levelSize = queueSize(front);
+        
+                for (int i = 0; i &lt levelSize; i++) {
+                    TreeNode* node = dequeue(&rear, &front);
+                    if (i == 0) {
+                        printf("%d ", node->data);
+                    }
+        
+                    if (node->left != NULL)
+                        enqueue(&rear, &front, node->left);
+                    if (node->right != NULL)
+                        enqueue(&rear, &front, node->right);
+                }
+            }
+        }
+        
+        int main(){
+            TreeNode* root = newNode(10);
+            root->left = newNode(2);
+            root->right = newNode(3);
+            root->left->left = newNode(7);
+            root->left->right = newNode(8);
+            root->right->right = newNode(15);
+            root->right->left = newNode(12);
+            root->right->right->left = newNode(14);
+        
+            printf("Left View: ");
+            printLeftView(root);
+            return 0;
+        }
+            
+    </pre>    
+    <h1>OUTPUT:</h1>
+    <pre>
+        Left View: 10 2 7 14    
+    </pre>
+</body>
+</html>

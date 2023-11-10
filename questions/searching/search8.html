@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stack.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include &ltstdio.h>
+        #include &ltstring.h>
+        #include &ltconio.h>
+        #include &ltdos.h>
+        
+        int binarySearch(char arr[], int n, char key) {
+            int l = 0, u = n-1;
+            while(l &lt= u)
+            {
+                int mid = l + (u - l) / 2;
+                if (arr[mid] == key)
+                {
+                    return mid;
+                }
+                else if(arr[mid] > key){
+                    u = mid-1;
+                }
+                else {
+                    l = mid+1;
+                }
+            }
+            return -1; 
+        }
+        
+        void main() {
+            char arr[20], key;
+            int result;
+            clrscr();
+            printf("enter any string:\n");
+            gets(arr);
+        
+            printf("enter character to be searched:\n");
+            scanf("%c", &key);
+            result = binarySearch(arr, strlen(arr), key);
+        
+            if (result == -1) {
+                printf("element %c not found in the array.\n", key);
+            } else {
+                printf("element %c found at position %d.\n", key, result+1);
+            }
+        
+            delay(5000);
+        }
+            
+    </pre>
+    <h1>OUTPUT:</h1>
+    <pre>
+        enter any string
+        Hello world
+        enter character to be searched
+        w
+        element w found at position 7.
+    </pre>
+</body>
+</html>

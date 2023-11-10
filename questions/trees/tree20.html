@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="tree.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include&ltstdio.h>
+        #include&ltstdlib.h>
+        #include&ltconio.h>
+        struct node
+        {
+            int data;
+            struct node *left;
+            struct node *right;
+        };
+        typedef struct node Node;
+        
+        Node* initNode(int data){
+            Node *new = (Node*)malloc(sizeof(Node));
+            new->data = data;
+            new->left = new->right = NULL;
+            return new;
+        }
+        
+        int insert(Node *root, int val){
+            Node *prev = NULL, *newnode;
+            if (root == NULL)
+            {
+                root = initNode(val);
+                return 1;
+            }
+            
+            while (root != NULL)
+            {
+                prev = root;
+                if (val == root->data)
+                {
+                    printf("%d already in Binary Search Tree\n", val);
+                    return 0;
+                }
+                else if (val &lt root->data)
+                    root = root->left;
+                else
+                    root = root->right;
+            }
+            newnode = initNode(val);
+            if (val &lt prev->data)
+                prev->left = newnode;
+            else
+                prev->right = newnode;
+            return 1;
+        }
+        
+        int countNodes(Node *root){
+            if (root == NULL)
+            {
+                return 0;
+            }
+            return countNodes(root->left)+countNodes(root->right)+1;
+        }
+        int main(){
+            Node *root = initNode(10);
+            insert(root, 29);
+            insert(root, 5);
+            insert(root, 4);
+            insert(root, 55);
+            insert(root, 12);
+            insert(root, 155);
+            insert(root, 2);
+            printf("Total Number of Nodes:\t%d", countNodes(root));
+        }
+    </pre>    
+    <h1>OUTPUT:</h1>
+    <pre>
+        Total Number of Nodes:  8
+    </pre>
+</body>
+</html>

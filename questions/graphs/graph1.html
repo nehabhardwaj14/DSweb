@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="graph.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include &ltstdio.h>
+        #include &ltconio.h>
+        int elemLoc(int elem, int n, int arr[])
+        {
+            int i;
+            for (i = 0; i &lt n; i++)
+            {
+                if (arr[i] == elem)
+                    return i;
+            }
+            return -1;
+        }
+        
+        int main()
+        {
+            int size = 5, vertex[5], adjacentMat[5][5], indx = 0, src, dest, i,j;
+            char ch;
+            for (i = 0; i &lt size; i++)
+            {
+                for (j = 0; j &lt size; j++)
+                {
+                    adjacentMat[i][j] = 0;
+                }
+            }
+            do
+            {
+                printf("Press 1: Insert Vertex\nPress 2: Insert Edge\nPress 3: Exit\n");
+                ch = getche();
+                printf("\n");
+                if (ch == '1')
+                {
+                    if (indx &lt size)
+                    {
+                        printf("Enter Value of Vertex:\t");
+                        scanf("%d", &vertex[indx]);
+                        printf("Vertex Added\n");
+                        indx++;
+                    }
+                    else{
+                        printf("Graph is Full\n");
+                    }
+                }
+                else if (ch == '2')
+                {
+                    printf("Enter Source:\t");
+                    scanf("%d", &src);
+                    printf("Enter Destination:\t");
+                    scanf("%d", &dest);
+                    if ((src = elemLoc(src, size, vertex)) == -1)
+                        printf("Invalid Source\n");
+                    else if ((dest = elemLoc(dest, size, vertex)) == -1)
+                        printf("Invalid Destination\n");
+                    else{
+                        adjacentMat[src][dest] = adjacentMat[dest][src] = 1;
+                        printf("Edge Inserted\n");
+                    }   
+                }        
+                else if(ch == '3'){
+                    printf("Exiting ....\n");
+                }
+                else{
+                    printf("Invalid Choice\n");
+                }
+            } while (ch != '3');
+            printf("Printing Adjacent Matrix\n");
+            for (i = 0; i &lt size; i++)
+            {
+                for (j = 0; j &lt size; j++)
+                {
+                    printf("%d ", adjacentMat[i][j]);
+                }
+                printf("\n");
+            }
+            
+            return 0;
+        }
+            
+    </pre>
+    <h1>OUTPUT:</h1>
+    <pre>
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Exit
+        1
+        Enter Value of Vertex:  56
+        Vertex Added
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Exit
+        1
+        Enter Value of Vertex:  78
+        Vertex Added
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Exit
+        1
+        Enter Value of Vertex:  47
+        Vertex Added
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Exit
+        1
+        Enter Value of Vertex:  49
+        Vertex Added
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Exit
+        2
+        Enter Source:   47
+        Enter Destination:      78
+        Edge Inserted
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Exit
+        2
+        Enter Source:   49
+        Enter Destination:      47
+        Edge Inserted
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Exit
+        3
+        Exiting ....
+        Printing Adjacent Matrix
+        0 0 0 0 0
+        0 0 1 0 0
+        0 1 0 1 0
+        0 0 1 0 0
+        0 0 0 0 0 
+    </pre>
+</body>
+</html>

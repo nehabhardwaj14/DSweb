@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="string.css">
+</head>
+<body>
+    <h1>PROGRAM:</h1>
+    <pre>
+        #include&ltstdio.h>
+        #include&ltconio.h>
+        #include&ltdos.h>
+        void main(){
+            int i,j;
+            char str[30];
+            clrscr();
+            printf("Enter String:\n");
+            gets(str);
+            printf("Before Trim:\n");
+            printf("%c", '(');
+            printf("%s", str);
+            printf("%c\n", ')');
+        
+            for (i = 0; str[i]; i++)
+            {
+            j=0;
+            for (j = 0; str[i+j] == ' '; j++);
+            if(str[i+j] == '\0')
+            {
+                str[i] = str[i+j];
+                break;
+            }
+            else
+                i = i+j;
+        
+            }
+            for(i = 0, j = 0; str[i]; i++){
+            if(i == 0 && str[i] == ' ')
+                while(str[i+1] == ' ')
+                  i++;
+            else
+               str[j++] = str[i];
+            }
+            str[j] = '\0';
+            printf("After Trim:\n");
+            printf("%c", '(');
+            printf("%s", str);
+            printf("%c", ')');
+            delay(5000);
+        }
+    </pre>
+    <h1>OUTPUT:</h1>
+    <pre>
+        Enter String:
+        data structure                                                                  
+        Before Trim:                                                                     
+        (   data structure   )                                                             
+        After Trim:                                                                      
+        (data structure)
+    </pre>
+</body>
+</html>

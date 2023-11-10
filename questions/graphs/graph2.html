@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="graph.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include &ltstdio.h>
+        #include &ltstdlib.h>
+        #include &ltconio.h>
+        struct edge
+        {
+            int val;
+            struct edge *next;
+        };
+        typedef struct edge Edge;
+        struct vertex
+        {
+            int val;
+            struct vertex *next;
+            Edge *ed;
+        };
+        typedef struct vertex Vertex;
+        
+        Vertex *search(Vertex *start, int key)
+        {
+            if (start == NULL)
+                return NULL;
+            while (start != NULL)
+            {
+                if (start->val == key)
+                    return start;
+                start = start->next;
+            }
+            return NULL;
+        }
+        
+        Edge *searchEdge(Edge *start, int key)
+        {
+            if (start == NULL)
+                return NULL;
+            while (start != NULL)
+            {
+                if (start->val == key)
+                    return start;
+                start = start->next;
+            }
+            return NULL;
+        }
+        
+        int insert(Vertex **start, Vertex **end, int value)
+        {
+            Vertex *nn;
+            if (search(*start, value))
+            {
+                printf("Duplicate values not allowed\n");
+                return 0;
+            }
+        
+            if (*start == NULL)
+            {
+                nn = (Vertex *)malloc(sizeof(Vertex));
+                if (nn == NULL)
+                {
+                    return 0;
+                }
+        
+                nn->val = value;
+                nn->ed = NULL;
+                nn->next = NULL;
+        
+                (*start) = (*end) = nn;
+                return 1;
+            }
+            else
+            {
+                nn = (Vertex *)malloc(sizeof(Vertex));
+                if (nn == NULL)
+                {
+                    return 0;
+                }
+                nn->val = value;
+                nn->ed = NULL;
+                nn->next = NULL;
+                (*end)->next = nn;
+                (*end) = nn;
+                return 1;
+            }
+        }
+        
+        int insEdge(Vertex *start, int src, int dest)
+        {
+            Vertex *srcptr = search(start, src), *destptr = search(start, dest);
+            Edge *nn;
+            if (srcptr != NULL && destptr != NULL)
+            {
+                if (searchEdge(srcptr->ed, dest) != NULL)
+                {
+                    printf("Duplicate Edge Not Allowed\n");
+                    return 0;
+                }
+        
+                nn = (Edge *)malloc(sizeof(Edge));
+                if (nn == NULL)
+                {
+                    printf("Insufficient Memory\n");
+                    return 0;
+                }
+        
+                nn->val = dest;
+                nn->next = srcptr->ed;
+                srcptr->ed = nn;
+                return 1;
+            }
+            return 0;
+        }
+        
+        void delAllEdge(Edge *start)
+        {
+            Edge *temp;
+            while (start != NULL)
+            {
+                temp = start;
+                start = start->next;
+                free(temp);
+            }
+        }
+        
+        int delVertex(Vertex **start, Vertex **end, int value)
+        {
+            Vertex *srch = search(*start, value), *prev = *start;
+            if (srch == NULL)
+            {
+                printf("Element Not Found\n");
+                return 0;
+            }
+            if (*start == *end)
+            {
+                delAllEdge(srch->ed);
+                free(srch);
+                *start = *end = NULL;
+                return 1;
+            }
+            else if (*start == srch)
+            {
+                delAllEdge(srch->ed);
+                (*start) = srch->next;
+                free(srch);
+                return 1;
+            }
+            else
+            {
+                delAllEdge(srch->ed);
+                while (prev->next != srch)
+                {
+                    prev = prev->next;
+                }
+                prev->next = srch->next;
+                free(srch);
+                return 1;
+            }
+            return 0;
+        }
+        
+        void printList(Vertex *start)
+        {
+            while (start != NULL)
+            {
+                printf("%d ", start->val);
+                start = start->next;
+            }
+        }
+        
+        int main()
+        {
+            Vertex *start = NULL, *end = NULL;
+            int src, dest, val;
+        
+            char ch;
+            do
+            {
+                printf("\nPress 1: Insert Vertex\nPress 2: Insert Edge\nPress 3: Delete Vertex\nPress 4: Exit\n");
+                ch = getche();
+                printf("\n");
+                if (ch == '1')
+                {
+                    printf("Enter Value of Vertex:\t");
+                    scanf("%d", &val);
+                    if (insert(&start, &end, val))
+                    {
+                        printf("Vertex Inserted Successfully\n");
+                    } 
+                }
+                else if (ch == '2')
+                {
+                    printf("Enter Source:\t");
+                    scanf("%d", &src);
+                    printf("Enter Destination:\t");
+                    scanf("%d", &dest);
+                    if (insEdge(start, src, dest))
+                    {
+                        printf("Edge Inserted Successfully\n");
+                    }       
+                }
+                else if (ch == '4')
+                {
+                    printf("Exiting ....\n");
+                }
+                else if (ch == '3')
+                {
+                    printf("Enter Value of Vertex to be deleted:\t");
+                    scanf("%d", &val);
+                    if (delVertex(&start, &end, val))
+                    {
+                        printf("Vertex Deleted Successfully\n");
+                    } 
+                }
+                else
+                {
+                    printf("Invalid Choice\n");
+                }
+                printf("Printing All Vertex\n");
+                printList(start);
+            } while (ch != '4');
+            return 0;
+        }
+    </pre>
+    <h1>OUTPUT:</h1>
+    <pre>
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Delete Vertex
+        Press 4: Exit
+        1
+        Enter Value of Vertex:  78
+        Vertex Inserted Successfully
+        Printing All Vertex
+        78 
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Delete Vertex
+        Press 4: Exit
+        1
+        Enter Value of Vertex:  25
+        Vertex Inserted Successfully
+        Printing All Vertex
+        78 25 
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Delete Vertex
+        Press 4: Exit
+        2
+        Enter Source:   78
+        Enter Destination:      25
+        Edge Inserted Successfully
+        Printing All Vertex
+        78 25
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Delete Vertex
+        Press 4: Exit
+        1
+        Enter Value of Vertex:  578
+        Vertex Inserted Successfully
+        Printing All Vertex
+        78 25 578
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Delete Vertex
+        Press 4: Exit
+        2
+        Enter Source:   78
+        Enter Destination:      578
+        Edge Inserted Successfully
+        Printing All Vertex
+        78 25 578
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Delete Vertex
+        Press 4: Exit
+        3
+        Enter Value of Vertex to be deleted:    578
+        Vertex Deleted Successfully
+        Printing All Vertex
+        78 25 
+        Press 1: Insert Vertex
+        Press 2: Insert Edge
+        Press 3: Delete Vertex
+        Press 4: Exit
+        4
+        Exiting ....
+        Printing All Vertex
+        78 25sss
+    </pre>
+</body>
+</html>

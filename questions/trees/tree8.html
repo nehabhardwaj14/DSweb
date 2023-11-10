@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="tree.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include&ltstdio.h>
+        #include&ltstdlib.h>
+        #include&ltconio.h>
+        struct node
+        {
+            int data;
+            struct node *left;
+            struct node *right;
+        };
+        typedef struct node Node;
+        
+        Node* initNode(int data){
+            Node *new = (Node*)malloc(sizeof(Node));
+            new->data = data;
+            new->left = new->right = NULL;
+            return new;
+        }
+        
+        int insert(Node *root, int val){
+            Node *prev = NULL, *newnode;
+            if (root == NULL)
+            {
+                root = initNode(val);
+                return 1;
+            }
+            
+            while (root != NULL)
+            {
+                prev = root;
+                if (val == root->data)
+                {
+                    printf("%d already in Binary Search Tree\n", val);
+                    return 0;
+                }
+                else if (val &lt root->data)
+                    root = root->left;
+                else
+                    root = root->right;
+            }
+            newnode = initNode(val);
+            if (val &lt prev->data)
+                prev->left = newnode;
+            else
+                prev->right = newnode;
+            return 1;
+        }
+        
+        Node* preDecFinder(Node *root){
+            root = root->left;
+            while (root->right != NULL)
+                root = root->right;
+            return root;
+        }
+        
+        Node* delete(Node *root, int val){
+            Node *predecessor;
+            if (root == NULL)
+                return NULL;
+        
+            if (root->left == NULL && root->right == NULL){
+                free(root);
+                return NULL;    
+            }
+        
+            if (val &lt root -> data)
+                root->left = delete(root->left, val);
+            else if (val > root -> data)
+                root->right = delete(root->right, val);
+            else{
+                predecessor = preDecFinder(root);
+                root->data = predecessor->data;
+                root->left = delete(root->left, predecessor->data);
+            }    
+            return root;    
+        }
+        
+        int search(Node *root, int val){
+            while (root != NULL)
+            {
+                if (val == root->data)
+                {
+                    return 1;
+                }
+                else if (val &lt root->data)
+                    root = root->left;
+                else
+                    root = root->right;
+            }
+            return 0;
+        }
+        
+        void preOrder(Node *root){
+            if (root == NULL)
+                return;
+            printf("%d ", root->data);
+            preOrder(root->left); 
+            preOrder(root->right);      
+        }
+        
+        void inOrder(Node *root){
+            if (root == NULL)
+                return;
+            preOrder(root->left); 
+            printf("%d ", root->data);
+            preOrder(root->right);      
+        }
+        
+        void postOrder(Node *root){
+            if (root == NULL)
+                return;
+            preOrder(root->left); 
+            preOrder(root->right);      
+            printf("%d ", root->data);
+        }
+        
+        int minValue(Node* root)
+        { 
+            while (root->left != NULL) {
+                root = root->left;
+            }
+            return (root->data);
+        }
+        
+        int main(){
+            Node *root = NULL;
+            char ch;
+            int val;
+            printf("Enter Root Value of BST\t");
+            scanf("%d", &val);
+            root = initNode(val); 
+            if (root != NULL)
+                printf("%d inserted to root of BST\n", val);
+            
+            do
+            {
+                printf("Press 1: Insert\nPress 2: Delete\nPress 3: Search\nPress 4: Traversal\nPress 5: Minimum Element\nPress 6: Exit\n");
+                ch = getche();
+                printf("\n");
+                if (ch == '1')
+                {
+                    printf("Enter Value to be inserted in BST\t");
+                    scanf("%d", &val);
+                    if (insert(root, val))
+                        printf("%d inserted to BST\n", val);            
+                }
+                else if (ch == '2')
+                {
+                    printf("Enter Value to be deleted from BST\t");
+                    scanf("%d", &val);
+                    if (delete(root, val) != NULL)
+                        printf("%d deleted from BST\n", val);     
+                    else
+                        printf("%d not available in BST\n", val);
+                }
+                else if (ch == '3')
+                {
+                    printf("Enter Value to be Searched in BST\t");
+                    scanf("%d", &val);
+                    if (search(root, val))
+                        printf("%d found in BST\n", val);     
+                    else
+                        printf("%d not available in BST\n", val);
+                }
+                else if (ch == '4')
+                {
+                    printf("Press 1: PreOrder Traversal\nPress 2: InOrder Traversal\nPress 3: PostOrder Traversal\n");
+                    ch = getche();
+                    printf("\n");
+                    if (ch == '1')
+                        preOrder(root);
+                    else if (ch == '2')
+                        inOrder(root);
+                    else if (ch == '3')
+                        postOrder(root);
+                    else
+                        printf("Invalid Traversal Option\n");
+                    printf("\n");
+                }
+                else if (ch == '5')
+                {
+                    if (root == NULL)
+                        printf("Tree is Empty\n");
+                    else
+                        printf("Minimum value of BST is %d\n",minValue(root));            
+                }
+                else if (ch == '6')
+                    printf("Exitting From the Program....\n");
+                else
+                    printf("Invalid Option\n");        
+            } while (ch != '6');
+            
+        
+            return 0;
+        }
+            
+    </pre>    
+    <h1>OUTPUT:</h1>
+    <pre>
+        Enter Root Value of BST 89
+        89 inserted to root of BST
+        Press 1: Insert
+        Press 2: Delete
+        Press 3: Search
+        Press 4: Traversal
+        Press 5: Minimum Element
+        Press 6: Exit
+        4
+        Press 1: PreOrder Traversal
+        Press 2: InOrder Traversal
+        Press 3: PostOrder Traversal
+        2
+        89 
+        Press 1: Insert
+        Press 2: Delete
+        Press 3: Search
+        Press 4: Traversal
+        Press 5: Minimum Element
+        Press 6: Exit
+        1
+        Enter Value to be inserted in BST       48
+        48 inserted to BST
+        Press 1: Insert
+        Press 2: Delete
+        Press 3: Search
+        Press 4: Traversal
+        Press 5: Minimum Element
+        Press 6: Exit
+        1
+        Enter Value to be inserted in BST       99
+        99 inserted to BST
+        Press 1: Insert
+        Press 2: Delete
+        Press 3: Search
+        Press 4: Traversal
+        Press 5: Minimum Element
+        Press 6: Exit
+        4
+        Press 1: PreOrder Traversal
+        Press 2: InOrder Traversal
+        Press 3: PostOrder Traversal
+        2
+        48 89 99
+        Press 1: Insert
+        Press 2: Delete
+        Press 3: Search
+        Press 4: Traversal
+        Press 5: Minimum Element
+        Press 6: Exit
+        3
+        Enter Value to be Searched in BST       89
+        89 found in BST
+        Press 1: Insert
+        Press 2: Delete
+        Press 3: Search
+        Press 4: Traversal
+        Press 5: Minimum Element
+        Press 6: Exit
+        5
+        Minimum value of BST is 48
+        Press 1: Insert
+        Press 2: Delete
+        Press 3: Search
+        Press 4: Traversal
+        Press 5: Minimum Element
+        Press 6: Exit
+        2
+        Enter Value to be deleted from BST      48
+        48 deleted from BST
+        Press 1: Insert
+        Press 2: Delete
+        Press 3: Search
+        Press 4: Traversal
+        Press 5: Minimum Element
+        Press 6: Exit
+        5
+        Minimum value of BST is 89
+        Press 1: Insert
+        Press 2: Delete
+        Press 3: Search
+        Press 4: Traversal
+        Press 5: Minimum Element
+        Press 6: Exit
+        6
+        Exitting From the Program....
+    </pre>
+</body>
+</html>

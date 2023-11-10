@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stack.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include&ltstdio.h>
+            #include&ltconio.h>
+            #include&ltdos.h>
+            long fibonacci(int num){
+                if (num &lt= 1)
+                    return num;
+                return (fibonacci(num - 1) + fibonacci(num - 2));    
+            }
+            
+            void main(){
+                int n;
+                clrscr();
+                printf("Enter nth term\n");
+                scanf("%d", &n);
+            
+                printf("Fibonacci of %d th term is %ld", n, fibonacci(n));
+                delay(5000);
+            }
+    </pre>
+    <h1>OUTPUT:</h1>
+    <pre>
+        Enter nth term
+        15
+        Fibonacci of 15 th term is 610 
+    </pre>
+</body>
+</html>

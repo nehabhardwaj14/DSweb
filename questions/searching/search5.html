@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stack.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include &ltstdio.h>
+        #include &ltconio.h>
+        #include &ltdos.h>
+        int binarySearch(int arr[], int n, int key) {
+            int l = 0, u = n-1, mid;
+            while(l&lt=u)
+            {
+                mid = l + (u - l) / 2;
+                if (arr[mid] == key)
+                {
+                    return mid;
+                }
+                else if(arr[mid] > key){
+                    u = mid-1;
+                }
+                else{
+                    l = mid+1;
+                }
+            }
+            return -1; 
+        }
+        
+        void main() {
+            int arr[10], i, key, result;
+            clrscr();
+            for (i = 0; i &lt 10; i++)
+            {
+                printf("Enter Value at position %d:\n", i+1);
+                scanf("%d", &arr[i]);
+            }
+        
+            printf("Enter Value to be searched:\n");
+            scanf("%d", &key);
+            result = binarySearch(arr, 10, key);
+        
+            if (result == -1) {
+                printf("Element %d not found in the array.\n", key);
+            } else {
+                printf("Element %d found at position %d.\n", key, result+1);
+            }
+        
+            delay(5000);
+        }
+            
+    </pre>
+    <h1>OUTPUT:</h1>
+    <pre>
+        Enter Value at position 1:
+        78
+        Enter Value at position 2:
+        90
+        Enter Value at position 3:
+        77
+        Enter Value at position 4:
+        12
+        1Enter Value at position 5:
+        1
+        Enter Value at position 6:
+        34
+        Enter Value at position 7:
+        43
+        Enter Value at position 8:
+        56
+        Enter Value at position 9:
+        52
+        Enter Value at position 10:
+        67
+        Enter Value to be searched:
+        1
+        Element 1 found at position 5.
+    </pre>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="sort.css">
+</head>
+<body>
+    <h1>PROGRAM: </h1>
+    <pre>
+        #include&ltstdio.h>
+        #include&ltconio.h>
+          //insertion sort through iteration
+            void insertsort(int arr[],int size)
+            {
+             int i,j,key;
+             for(i=1;i&ltsize;i++){                
+              key=arr[i];
+             j=i-1;
+             while(j>=0 && arr[j] >key){
+              arr[j+1]=arr[j];
+              j=j-1;
+            }
+            arr[j+1]=key;
+            }
+          }
+               void main()
+               {
+        
+               int i,arr[5];
+               clrscr();
+               for(i=0;i&lt5;i++)
+               {
+               printf("enter value at position %d:\n",i+1);
+               scanf("%d",&arr[i]);
+               }
+               insertsort(arr,5);
+               for(i=0;i&lt5;i++)
+               {
+               printf("sorted array:%d\n",arr[i]);
+               }
+               delay(5000);
+               }
+    </pre>    
+    <h1>OUTPUT:</h1>
+    <pre>
+        enter value at position 1:                                                      
+        89                                                                              
+        enter value at position 2:                                                      
+        67                                                                              
+        enter value at position 3:                                                      
+        34                                                                              
+        enter value at position 4:                                                      
+        23                                                                              
+        enter value at position 5:                                                      
+        12                                                                              
+        sorted array:12                                                                 
+        sorted array:23                                                                 
+        sorted array:34                                                                 
+        sorted array:67                                                                 
+        sorted array:89
+    </pre>
+</body>
+</html>
